@@ -17,16 +17,16 @@ To get started with this project, follow these steps:
 <h1> Requirements </h1>
 This project requires the following libraries and frameworks:
 </br>
-- Python 3.7 or higher
-- TensorFlow 2.10 or higher
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- gensil
-- tflearn
-- tf_slim
-- nltk
+Python 3.7 or higher </br>
+TensorFlow 2.10 or higher </br>
+pandas </br>
+numpy </br>
+matplotlib </br>
+seaborn </br>
+gensil </br>
+tflearn </br>
+tf_slim </br>
+nltk </br>
 
 <h1> Results </h1>
 | Model Name and Parameters | Published Result | Obtained Result |

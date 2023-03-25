@@ -1,0 +1,11 @@
+ipykernel
+pandas
+click
+gensim
+tflearn
+tensorflow
+tf_slim
+tqdm
+scikit-learn
+scipy
+nltk

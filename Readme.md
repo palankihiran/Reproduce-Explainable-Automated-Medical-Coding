@@ -1,35 +1,43 @@
-Hi welcome to this repo Reproduce-Explainable-Automated-Medical-Coding.
+<h1> Project Description </h1>
+This project aims to reproduce the results of the Explainable Automated Medical Coding system as presented in the paper titled "Explainable Automated Medical Coding" by B. Paudel et al. The original paper proposed a system for automatically assigning medical codes to clinical notes using deep learning techniques. By this the reproducibility of the project can be verified.
 
-<h1> Aim </h1>
-The main aim of this project is to reproduce the result of Explainable-Automated-Medical-Coding using the latest libraries. Secondary aim is carry out other analysis by doing some variations in the parameters and model to analyse the effect of these variations on the model performance.
+In this project, we will use the latest libraries and frameworks to recreate the original system and evaluate its performance. By using the latest libraries and dependencies, this project will ensure that the code remains compatible with the latest versions of software and can be run in the future. This can increase the reproducibility of the results and make it easier for others to build upon the work in the future.
 
-<h1> About this repositry </h1>
-This repo uses the codes from the main repositry to reproduce the result.
-Link for the main repositry - https://github.com/acadTags/Explainable-Automated-Medical-Coding 
+<h1> Getting Started </h1>
+To get started with this project, follow these steps:
 
-The code has been modified to use the latest libraries, Inspiration was taken from this repositry which tries to reproduce the results of the main repositry in a Colab environment.
-Link to the repositry - https://github.com/dmcguire81/CS598DL4H
-
-Main the repositry uses the preprocessing steps from CAML-MIMIC repositry which is a neccessary requirement for reprocubility of the main repositry.
-Link for CAML-MIMIC repositry - https://github.com/jamesmullenbach/caml-mimic
-
-<h1> Project Setup </h1>
-A project setup similar to https://github.com/dmcguire81/CS598DL4H was needed for this project as it provides complete files in one repositry.
-
-Step 1:
 Make a standalone repositry
+Clone the project repository: git clone https://github.com/acadTags/Explainable-Automated-Medical-Coding.git
+Clone the project repository: git clone https://github.com/jamesmullenbach/caml-mimic.git
+Install the necessary dependencies: pip install -r requirements.txt
+Download the dataset used in the original paper and preprocess it using the instructions in the caml-mimic repository
+Convert the preprocessed .csv files from the caml-mimic to .txt files as required and mentioned in Explainable-Automated-Medical-Coding using the code provided in the Repo_setup.ipnb
+To Train the model, I have listed the commands used to train the model in the Repo_setup.ipynb
+Evaluate the model on the test set and compare the results to those reported in the paper.
+<h1> Requirements </h1>
+This project requires the following libraries and frameworks:
 
-Step 2:
-Clone https://github.com/jamesmullenbach/caml-mimic and https://github.com/acadTags/Explainable-Automated-Medical-Coding into the repositry
+Python 3.7 or higher
+TensorFlow 2.10 or higher
+pandas
+numpy
+matplotlib
+seaborn
+gensil
+tflearn
+tf_slim
+nltk
 
-Step 3:
-Using the inpsiration from https://github.com/dmcguire81/CS598DL4H The HLAN was modified to work with latest libraries
+<h1> Results </h1>
+| Model Name/ Parameters | Published Result | Obtained Result |
+| --- | --- | --- |
+| HLAN+LE+sent_split | Micro-F1-score: 74.6% <br> Micro-ROC-AUC score: 96.9%  | Micro-F1-score: 57.51% <br> Micro-ROC-AUC score: 89.7% |
+| HAN+LE | Micro-F1-score: 75.1% <br> Micro-ROC-AUC score: 97.4%  | Micro-F1-score: 58.14% <br> Micro-ROC-AUC score: 89.8% |
+| HA-GRU+LE | Micro-F1-score: 73.4% <br> Micro-ROC-AUC score: 96.8%  | Micro-F1-score: 57.63% <br> Micro-ROC-AUC score: 89.7% |
+| HLAN+LE | --  | Micro-F1-score: 64.28% <br> Micro-ROC-AUC score: 92.17% |
 
-Step 4:
-Modification of code in caml-mimic to use the latest libraries. Place the data as mentioned in the original repositry and then use the notebook caml-mimic/notebooks/dataproc_mimic_III.ipynb to preprocess the mimic data.
+<h1> Acknowledgements </h1>
+This project is based on the work of B. Paudel et al. as presented in their paper "Explainable Automated Medical Coding". We would like to thank the authors for making their code and dataset available to the public.
 
-Step 5:
-Place the mimiciii_*_50_th0.txt files inside the Explainable-Automated-Medical-Coding/datasets/ along with other requirements mentioned in the Explainable-Automated-Medical-Coding/README.md. using the modified HLAN files run the training.
-
-<h1> Notebook </h1>
-I have placed a notebook which replicates the step above, Note the files can be copied using python libraries but here was done manually to avoid any confusion.
+<h1> License </h1>
+This project is licensed under the MIT License. See the LICENSE file for details.

@@ -6,27 +6,27 @@ In this project, we will use the latest libraries and frameworks to recreate the
 <h1> Getting Started </h1>
 To get started with this project, follow these steps:
 
-Make a standalone repositry
-Clone the project repository: git clone https://github.com/acadTags/Explainable-Automated-Medical-Coding.git
-Clone the project repository: git clone https://github.com/jamesmullenbach/caml-mimic.git
-Install the necessary dependencies: pip install -r requirements.txt
-Download the dataset used in the original paper and preprocess it using the instructions in the caml-mimic repository
-Convert the preprocessed .csv files from the caml-mimic to .txt files as required and mentioned in Explainable-Automated-Medical-Coding using the code provided in the Repo_setup.ipnb
-To Train the model, I have listed the commands used to train the model in the Repo_setup.ipynb
-Evaluate the model on the test set and compare the results to those reported in the paper.
+- Make a standalone repositry
+- Clone the project repository: git clone https://github.com/acadTags/Explainable-Automated-Medical-Coding.git
+- Clone the project repository: git clone https://github.com/jamesmullenbach/caml-mimic.git
+- Install the necessary dependencies: pip install -r requirements.txt
+- Download the dataset used in the original paper and preprocess it using the instructions in the caml-mimic repository
+- Convert the preprocessed .csv files from the caml-mimic to .txt files as required and mentioned in Explainable-Automated-Medical-Coding using the code provided in the Repo_setup.ipnb
+- To Train the model, I have listed the commands used to train the model in the Repo_setup.ipynb
+- Evaluate the model on the test set and compare the results to those reported in the paper.
 <h1> Requirements </h1>
 This project requires the following libraries and frameworks:
-
-Python 3.7 or higher
-TensorFlow 2.10 or higher
-pandas
-numpy
-matplotlib
-seaborn
-gensil
-tflearn
-tf_slim
-nltk
+</br>
+- Python 3.7 or higher
+- TensorFlow 2.10 or higher
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- gensil
+- tflearn
+- tf_slim
+- nltk
 
 <h1> Results </h1>
 | Model Name/ Parameters | Published Result | Obtained Result |

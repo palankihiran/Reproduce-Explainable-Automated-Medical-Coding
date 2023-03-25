@@ -29,12 +29,34 @@ tf_slim </br>
 nltk </br>
 
 <h1> Results </h1>
-| Model Name and Parameters | Published Result (Micro) | Obtained Result (Micro) |
-| --- | --- | --- |
-| HLAN+LE+sent_split | F1-score: 74.6% ROC-AUC score: 96.9% | F1-score: 57.51% ROC-AUC score: 89.7% |
-| HAN+LE | F1-score: 75.1%, ROC-AUC score: 97.4% | F1-score: 58.14%, ROC-AUC score: 89.8% |
-| HA-GRU+LE | F1-score: 73.4%, ROC-AUC score: 96.8% | F1-score: 57.63%, ROC-AUC score: 89.7% |
-| HLAN+LE | Not published | F1-score: 64.28%, ROC-AUC score: 92.17% |
+<table>
+  <tr>
+    <th>Model Name/ Parameters</th>
+    <th>Published Result</th>
+    <th>Obtained Result</th>
+  </tr>
+  <tr>
+    <td>HLAN+LE+sent_split</td>
+    <td>Micro-F1-score: 74.6% <br> Micro-ROC-AUC score: 96.9%</td>
+    <td>Micro-F1-score: 57.51% <br> Micro-ROC-AUC score: 89.7%</td>
+  </tr>
+  <tr>
+    <td>HAN+LE</td>
+    <td>Micro-F1-score: 75.1% <br> Micro-ROC-AUC score: 97.4%</td>
+    <td>Micro-F1-score: 58.14% <br> Micro-ROC-AUC score: 89.8%</td>
+  </tr>
+  <tr>
+    <td>HA-GRU+LE</td>
+    <td>Micro-F1-score: 73.4% <br> Micro-ROC-AUC score: 96.8%</td>
+    <td>Micro-F1-score: 57.63% <br> Micro-ROC-AUC score: 89.7%</td>
+  </tr>
+  <tr>
+    <td>HLAN+LE</td>
+    <td>--</td>
+    <td>Micro-F1-score: 64.28% <br> Micro-ROC-AUC score: 92.17%</td>
+  </tr>
+</table>
+
 
 <h1> Acknowledgements </h1>
 This project is based on the work of B. Paudel et al. as presented in their paper "Explainable Automated Medical Coding". We would like to thank the authors for making their code and dataset available to the public.

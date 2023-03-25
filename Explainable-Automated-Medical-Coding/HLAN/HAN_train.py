@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 #code to train, validate, and test the model, with all the evaluation functions applied.
 #process--->1.load data(X:list of lint,y:int). 2.create session. 3.feed data. 4.training (5.validation) ,(6.prediction)
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import pandas as pd
 import time
@@ -94,31 +96,31 @@ tf.app.flags.DEFINE_boolean("do_hierarchical_evaluation",False,"whether to carry
 #training, validation and testing with pre-split datasets
 tf.app.flags.DEFINE_boolean("use_sent_split_padded_version",False,"whether to use the sentenece splitted and padded version [MIMIC-III-related datasets only].") #whether to use the sentenece splitted and padded version. If set as true, HAN will deal with *real* sentences instead of fixed-length text chunks. This is used for MIMIC-III-related datasets. The sentence splitting was using a rule-based algorithm in the Spacy package with adding a double newline rule '\n\n' as another sentence boundary. The number of tokens in each sentence was padded to 25, and the number of sentences was padded to 100.
 
-tf.app.flags.DEFINE_string("training_data_path_mimic3_ds","../datasets/mimiciii_train_th0.txt","path of training data.") # for mimic3-ds dataset
-tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds","../datasets/mimiciii_dev_th0.txt","path of validation/dev data.") # for mimic3-ds dataset
-tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds","../datasets/mimiciii_test_th0.txt","path of testing data.") # for mimic3-ds dataset
+tf.app.flags.DEFINE_string("training_data_path_mimic3_ds","datasets/mimiciii_train_50_th0.txt","path of training data.") # for mimic3-ds dataset
+tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds","datasets/mimiciii_dev_th0.txt","path of validation/dev data.") # for mimic3-ds dataset
+tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds","datasets/mimiciii_test_th0.txt","path of testing data.") # for mimic3-ds dataset
 
-tf.app.flags.DEFINE_string("training_data_path_mimic3_ds_50","../datasets/mimiciii_train_50_th0.txt","path of training data.") # for mimic3-ds-50 dataset
-tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds_50","../datasets/mimiciii_dev_50_th0.txt","path of validation/dev data.") # for mimic3-ds-50 dataset
-tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds_50","../datasets/mimiciii_test_50_th0.txt","path of testing data.") # for mimic3-ds-50 dataset
+tf.app.flags.DEFINE_string("training_data_path_mimic3_ds_50","datasets/mimiciii_train_50_th0.txt","path of training data.") # for mimic3-ds-50 dataset
+tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds_50","datasets/mimiciii_dev_50_th0.txt","path of validation/dev data.") # for mimic3-ds-50 dataset
+tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds_50","datasets/mimiciii_test_50_th0.txt","path of testing data.") # for mimic3-ds-50 dataset
 
 #freq th as 50 (20 labels)
-tf.app.flags.DEFINE_string("training_data_path_mimic3_ds_shielding_th50","../datasets/mimiciii_train_full_th_50_covid_shielding.txt","path of training data.") # for mimic3-ds-shielding-50 dataset
-tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds_shielding_th50","../datasets/mimiciii_dev_full_th_50_covid_shielding.txt","path of validation/dev data.") # for mimic3-ds-shielding-50 dataset
-tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds_shielding_th50","../datasets/mimiciii_test_full_th_50_covid_shielding.txt","path of testing data.") # for mimic3-ds-shielding-50 dataset
+tf.app.flags.DEFINE_string("training_data_path_mimic3_ds_shielding_th50","datasets/mimiciii_train_full_th_50_covid_shielding.txt","path of training data.") # for mimic3-ds-shielding-50 dataset
+tf.app.flags.DEFINE_string("validation_data_path_mimic3_ds_shielding_th50","datasets/mimiciii_dev_full_th_50_covid_shielding.txt","path of validation/dev data.") # for mimic3-ds-shielding-50 dataset
+tf.app.flags.DEFINE_string("testing_data_path_mimic3_ds_shielding_th50","datasets/mimiciii_test_full_th_50_covid_shielding.txt","path of testing data.") # for mimic3-ds-shielding-50 dataset
 
 tf.app.flags.DEFINE_string("marking_id","","a marking_id (or group_id) for better marking: will show in the output filenames")
 
-tf.app.flags.DEFINE_string("word2vec_model_path_mimic3_ds","../embeddings/processed_full.w2v","gensim word2vec's vocabulary and vectors") #for both mimic-iii and mimic-iii-50
-tf.app.flags.DEFINE_string("word2vec_model_path_mimic3_ds_50","../embeddings/processed_full.w2v","gensim word2vec's vocabulary and vectors") #for mimic-iii-50
+tf.app.flags.DEFINE_string("word2vec_model_path_mimic3_ds","embeddings/processed_full.w2v","gensim word2vec's vocabulary and vectors") #for both mimic-iii and mimic-iii-50
+tf.app.flags.DEFINE_string("word2vec_model_path_mimic3_ds_50","embeddings/processed_full.w2v","gensim word2vec's vocabulary and vectors") #for mimic-iii-50
 
-tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds","../embeddings/word-mimic3-ds-label.model","pre-trained model from mimic3-ds labels")
+tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds","embeddings/word-mimic3-ds-label.model","pre-trained model from mimic3-ds labels")
 # label emebedding for initialisation, also see def instantiate_weights(self) in HAN_model_dynamic.py
-tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds_init","../embeddings/code-emb-mimic3-tr-400.model","pre-trained model from mimic3-ds labels for label embedding initialisation: final projection matrix, self.W_projection.")
-tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds_init_per_label","../embeddings/code-emb-mimic3-tr-200.model","pre-trained model from mimic3-ds labels for label embedding initialisation: per label context matrices, self.context_vector_word_per_label and self.context_vector_sentence_per_label") # per_label means the per-label Context_vectors.
+tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds_init","embeddings/code-emb-mimic3-tr-400.model","pre-trained model from mimic3-ds labels for label embedding initialisation: final projection matrix, self.W_projection.")
+tf.app.flags.DEFINE_string("emb_model_path_mimic3_ds_init_per_label","embeddings/code-emb-mimic3-tr-200.model","pre-trained model from mimic3-ds labels for label embedding initialisation: per label context matrices, self.context_vector_word_per_label and self.context_vector_sentence_per_label") # per_label means the per-label Context_vectors.
 
-tf.app.flags.DEFINE_string("kb_icd9","../knowledge_bases/kb-icd-sub.csv","label relations from icd9, for mimic3") # for zhihu dataset
-tf.app.flags.DEFINE_string("kb_icd9_he","../knowledge_bases/icd9_graph_desc.json","label relations from icd9, for mimic3 - hierarchical evaluation") # for mimic3 dataset, hierarchical evaluation
+tf.app.flags.DEFINE_string("kb_icd9","knowledge_bases/kb-icd-sub.csv","label relations from icd9, for mimic3") # for zhihu dataset
+tf.app.flags.DEFINE_string("kb_icd9_he","knowledge_bases/icd9_graph_desc.json","label relations from icd9, for mimic3 - hierarchical evaluation") # for mimic3 dataset, hierarchical evaluation
 
 tf.app.flags.DEFINE_boolean("multi_label_flag",True,"use multi label or single label.")
 tf.app.flags.DEFINE_integer("num_sentences", 10, "number of sentences in the document")
@@ -648,7 +650,7 @@ def main(_):
             
             prediction_str = ""
             # output final predictions for qualitative analysis (with attention visualisation)
-            if FLAGS.report_rand_pred:
+            if FLAGS.report_rand_pred == True:
                 if FLAGS.per_label_attention: # to do for per_label_sent_only
                     prediction_str = display_for_qualitative_evaluation_per_label(sess,model,label_sim_mat,label_sub_mat,testX,testY,batch_size,vocabulary_index2word,vocabulary_index2word_label,threshold=FLAGS.pred_threshold,use_random_sampling=FLAGS.use_random_sampling) #default as not using random sampling, that is, to display all results with attention weights (for small test set)
                 else:
@@ -775,7 +777,7 @@ def assign_pretrained_word_embedding(sess,vocabulary_index2word,vocab_size,model
     word2vec_dict = {}
     #for word, vector in zip(word2vec_model.vocab, word2vec_model.vectors): # for danielfrg's word2vec models
     #    word2vec_dict[word] = vector # for danielfrg's word2vec models
-    for _, word in enumerate(word2vec_model.wv.vocab):
+    for _, word in enumerate(word2vec_model.wv.index_to_key):
         word2vec_dict[word] = word2vec_model.wv[word]
         
     word_embedding_2dlist = [[]] * vocab_size  # create an empty word_embedding list: which is a list of list, i.e. a list of word, where each word is a list of values as an embedding vector.
@@ -822,7 +824,7 @@ def assign_pretrained_label_embedding(sess,vocabulary_index2word_label,model,num
     word2vec_model_labels = Word2Vec.load(label_embedding_model_path) # for gensim word2vec models
     
     word2vec_dict_labels = {}
-    for _, label in enumerate(word2vec_model_labels.wv.vocab):
+    for _, label in enumerate(word2vec_model_labels.wv.index_to_key):
         word2vec_dict_labels[label] = word2vec_model_labels.wv[label]
     
     num_classes = len(vocabulary_index2word_label)
@@ -861,7 +863,7 @@ def assign_pretrained_label_embedding_per_label(sess,vocabulary_index2word_label
     word2vec_model_labels = Word2Vec.load(label_embedding_model_path) # for gensim word2vec models
     
     word2vec_dict_labels = {}
-    for _, label in enumerate(word2vec_model_labels.wv.vocab):
+    for _, label in enumerate(word2vec_model_labels.wv.index_to_key):
         word2vec_dict_labels[label] = word2vec_model_labels.wv[label]
     
     num_classes = len(vocabulary_index2word_label)

@@ -19,7 +19,7 @@ def get_label_sub_matrix(vocabulary_word2index_label,kb_path,name_scope='',zero_
     Get subsumption matrix of shape num_label*num_label \in {0,1} from label knowledge base.
     Added zero_init, this is used when L_sub is not needed, i.e. lambda_sub as 0; it initialise a zero matrix with the num_label*num_label shape.
     '''
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_label_sub.pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_sub.pik"
     print("cache_path:",cache_path,"file_exists:",os.path.exists(cache_path))
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
@@ -56,7 +56,7 @@ def get_label_sim_matrix(vocabulary_index2word_label,word2vec_model_label_path='
     Added random_init, this is used when word2vec_model_label_path is not available; it initialise a random matrix \in (0,1) with the num_label*num_label shape.
     Also, here the word2vec_model should have embedding for all the labels
         otherwise there will be a KeyError from Gensim when random_init is False'''
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_label_sim_" + str(threshold) + ".pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_sim_" + str(threshold) + ".pik"
     print("cache_path:",cache_path,"file_exists:",os.path.exists(cache_path))
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
@@ -99,7 +99,7 @@ def get_label_sim_matrix(vocabulary_index2word_label,word2vec_model_label_path='
     return result
 
 def create_vocabulary(word2vec_model_path,name_scope=''):
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_word_vocabulary.pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_word_vocabulary.pik"
     print("cache_path:",cache_path,"file_exists:",os.path.exists(cache_path))
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
@@ -132,7 +132,7 @@ def create_vocabulary(word2vec_model_path,name_scope=''):
 
 # create vocabulary of labels. label is sorted. 1 is high frequency, 2 is low frequency.
 def create_vocabulary_label_for_predict(name_scope=''):
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
             vocabulary_word2index_label, vocabulary_index2word_label=pickle.load(data_f)
@@ -145,7 +145,7 @@ def create_vocabulary_label_pre_split(training_data_path,validation_data_path,te
     '''
     create vocabulary from data split files - validation data path can be None or empty string if not exists.
     '''
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
             vocabulary_word2index_label, vocabulary_index2word_label=pickle.load(data_f)
@@ -210,7 +210,7 @@ def create_vocabulary_label_pre_split(training_data_path,validation_data_path,te
 # create vocabulary of lables. label is sorted. 1 is high frequency, 2 is low frequency.
 def create_vocabulary_label(training_data_path,name_scope='',use_seq2seq=False,label_freq_th=0):
     print("create_vocabulary_label_sorted.started.full_data_path:",training_data_path)
-    cache_path ='../cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
+    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_vocabulary.pik"
     if os.path.exists(cache_path):
         with open(cache_path, 'rb') as data_f:
             vocabulary_word2index_label, vocabulary_index2word_label=pickle.load(data_f)

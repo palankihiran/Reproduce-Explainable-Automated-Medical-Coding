@@ -215,7 +215,7 @@ def code_and_explain(doc_str,mode='top50',verbose=False,display_viz=True):
                 display(doc_att_viz)
             
             # export the visualisation to an Excel sheet
-            # filename = '..\explanations\\' + filename # put the files under the ..\explanations\ folder.
+            # filename = os.sep.join(['..', 'explanations', filename]) # put the files under the ../explanations/ folder.
             # # reset the font for the Excel sheet
             # doc_att_viz.set_properties(**{'font-size': '9pt'})\
                        # .to_excel(filename, engine='openpyxl')

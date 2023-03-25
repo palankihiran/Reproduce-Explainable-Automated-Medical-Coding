@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # HierarchicalAttention: 1.Word Encoder. 2.Word Attention. 3.Sentence Encoder 4.Sentence Attention 5.linear classifier.
-import tensorflow as tf
-#import tensorflow.compat.v1 as tf
-#tf.disable_v2_behavior()
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
-import tensorflow.contrib as tf_contrib
+#import tensorflow.contrib as tf_contrib
+import tf_slim as slim
 
 class HAN:
     def __init__(self, num_classes, learning_rate, batch_size, decay_steps, decay_rate, sequence_length, num_sentences, vocab_size, embed_size, hidden_size, is_training, lambda_sim=0.00001, lambda_sub=0, dynamic_sem=False,dynamic_sem_l2=False,per_label_attention=False,per_label_sent_only=False,need_sentence_level_attention_encoder_flag=True, multi_label_flag=True, initializer= tf.random_normal_initializer(stddev=0.1),clip_gradients=5.0,verbose=True):#0.01 # tf.random_normal_initializer(mean=0.0,stddev=0.1,seed=1)
@@ -983,7 +984,7 @@ class HAN:
         learning_rate = tf.train.exponential_decay(self.learning_rate, self.global_step, self.decay_steps,self.decay_rate, staircase=True) #decay of learning rate
         #self.learning_rate_=learning_rate
         #noise_std_dev = tf.constant(0.3) / (tf.sqrt(tf.cast(tf.constant(1) + self.global_step, tf.float32))) #gradient_noise_scale=noise_std_dev
-        train_op = tf_contrib.layers.optimize_loss(self.loss_val, global_step=self.global_step,learning_rate=learning_rate, optimizer="Adam",clip_gradients=self.clip_gradients) #using adam here. # gradient cliping is also applied.
+        train_op = slim.optimize_loss(self.loss_val, global_step=self.global_step,learning_rate=learning_rate, optimizer="Adam",clip_gradients=self.clip_gradients) #using adam here. # gradient cliping is also applied.
         return train_op
 
     def gru_single_step_word_level(self, Xt, h_t_minus_1):

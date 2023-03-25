@@ -29,12 +29,12 @@ This project requires the following libraries and frameworks:
 - nltk
 
 <h1> Results </h1>
-| Model Name/ Parameters | Published Result | Obtained Result |
+| Model Name and Parameters | Published Result | Obtained Result |
 | --- | --- | --- |
 | HLAN+LE+sent_split | Micro-F1-score: 74.6%, Micro-ROC-AUC score: 96.9% | Micro-F1-score: 57.51%, Micro-ROC-AUC score: 89.7% |
 | HAN+LE | Micro-F1-score: 75.1%, Micro-ROC-AUC score: 97.4% | Micro-F1-score: 58.14%, Micro-ROC-AUC score: 89.8% |
 | HA-GRU+LE | Micro-F1-score: 73.4%, Micro-ROC-AUC score: 96.8% | Micro-F1-score: 57.63%, Micro-ROC-AUC score: 89.7% |
-| HLAN+LE | -- | Micro-F1-score: 64.28%, Micro-ROC-AUC score: 92.17% |
+| HLAN+LE | Not published | Micro-F1-score: 64.28%, Micro-ROC-AUC score: 92.17% |
 
 <h1> Acknowledgements </h1>
 This project is based on the work of B. Paudel et al. as presented in their paper "Explainable Automated Medical Coding". We would like to thank the authors for making their code and dataset available to the public.

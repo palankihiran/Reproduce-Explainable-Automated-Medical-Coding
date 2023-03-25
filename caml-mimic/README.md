@@ -1,14 +1,13 @@
 # caml-mimic (CS598DL4H)
 
 ## Updated Dependencies
-* Python 3.7
-* pytorch 1.9.1
-* tqdm 4.51.0
-* scikit-learn 0.24.2
-* numpy 1.19.2, scipy 1.5.2, pandas 1.3.4
-* jupyter-notebook 4.7.0
-* gensim 3.8.0
-* nltk 3.5
+* Python
+* tqdm
+* scikit-learn 
+* numpy , scipy , pandas 
+* jupyter-notebook 
+* gensim 
+* nltk
 
 ## Data processing
 
